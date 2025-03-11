@@ -1,0 +1,9 @@
+<div class="notifications-container">
+    <h2>My Notifications</h2>
+    <ul class="list-group">
+      <li *ngFor="let note of notifications" class="list-group-item">
+        <i class="fas fa-bell"></i> {{ note.message }} <span class="timestamp">{{ note.timestamp | date:'short' }}</span>
+      </li>
+    </ul>
+  </div>
+  

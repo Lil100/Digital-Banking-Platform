@@ -1,0 +1,13 @@
+<div *ngIf="customer" class="modal-overlay" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h3>Customer Details</h3>
+      <p><strong>Name:</strong> {{ customer.name }}</p>
+      <p><strong>Email:</strong> {{ customer.email }}</p>
+      <p><strong>Phone:</strong> {{ customer.phone }}</p>
+      <p><strong>Status:</strong> {{ customer.status }}</p>
+      <button class="btn btn-secondary" (click)="closeModal()">
+        <i class="fas fa-times"></i> Close
+      </button>
+    </div>
+  </div>
+  

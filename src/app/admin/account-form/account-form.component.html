@@ -1,0 +1,52 @@
+<form [formGroup]="accountForm" (ngSubmit)="submitForm()">
+  <!-- Only show account number for existing accounts -->
+  <div class="form-group" *ngIf="account">
+    <label for="accountNumber">Account Number</label>
+    <input type="text" formControlName="accountNumber" class="form-control" readonly placeholder="Auto-generated on creation" />
+  </div>
+  
+  <!-- Customer selection using Angular Material Autocomplete -->
+  <div class="form-group">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Customer</mat-label>
+      <input type="text"
+             matInput
+             [formControl]="customerControl"
+             [matAutocomplete]="auto"
+             placeholder="Select a customer">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayCustomer" (optionSelected)="onCustomerSelected($event.option.value)">
+        <mat-option *ngFor="let customer of filteredCustomers | async" [value]="customer">
+          {{ customer.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <small *ngIf="customerControl.invalid && customerControl.touched" class="text-danger">
+      Customer selection is required.
+    </small>
+  </div>
+  
+  <div class="form-group">
+    <label for="accountType">Account Type</label>
+    <select formControlName="accountType" class="form-control">
+      <option value="savings">Savings</option>
+      <option value="checking">Checking</option>
+    </select>
+  </div>
+  
+  <div class="form-group">
+    <label for="balance">Initial Balance</label>
+    <input type="number" formControlName="balance" class="form-control" placeholder="0.00" />
+  </div>
+  
+  <div class="form-group">
+    <label for="status">Status</label>
+    <select formControlName="status" class="form-control">
+      <option value="active">Active</option>
+      <option value="frozen">Frozen</option>
+    </select>
+  </div>
+  
+  <button type="submit" class="btn btn-primary">
+    <i class="fas fa-save"></i> {{ account ? 'Update' : 'Create' }} Account
+  </button>
+</form>

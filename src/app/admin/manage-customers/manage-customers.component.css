@@ -1,0 +1,40 @@
+.customers-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .table {
+    width: 100%;
+  }
+  
+  td, th {
+    text-align: center;
+  }
+  
+  .active {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .inactive {
+    color: red;
+    font-weight: bold;
+  }
+  
+  button {
+    margin-right: 5px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  button:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+  }
+  

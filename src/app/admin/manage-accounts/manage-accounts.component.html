@@ -1,0 +1,58 @@
+<div class="accounts-container">
+  <h2>Manage Bank Accounts</h2>
+
+  <!-- Add New Account Button -->
+  <div class="mb-3 text-end">
+    <button class="btn btn-success" (click)="openAccountForm()">
+      <i class="fas fa-plus"></i> Add New Account
+    </button>
+  </div>
+
+  <table class="table table-striped table-hover table-responsive">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Account Number</th>
+        <th>Customer</th>
+        <th>Type</th>
+        <th>Balance</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let account of accounts; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ account.accountNumber }}</td>
+        <td>{{ account.customerName }}</td>
+        <td>{{ account.accountType | titlecase }}</td>
+        <td>{{ account.balance | currency }}</td>
+        <td>
+          <span [ngClass]="{
+            'badge bg-success': account.status === 'active',
+            'badge bg-danger': account.status === 'frozen'
+          }">
+            {{ account.status | titlecase }}
+          </span>
+        </td>
+        <td>
+          <div class="btn-group">
+            <!-- Freeze/Unfreeze Button -->
+            <button class="btn btn-warning btn-sm" (click)="freezeUnfreezeAccount(account)">
+              <i class="fas" [ngClass]="{
+                'fa-lock': account.status === 'active',
+                'fa-unlock': account.status === 'frozen'
+              }"></i> 
+              {{ account.status === 'active' ? 'Freeze' : 'Unfreeze' }}
+            </button>
+
+            <!-- Edit Account Button -->
+            <button class="btn btn-info btn-sm" (click)="openAccountForm(account)">
+              <i class="fas fa-edit"></i> Edit
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

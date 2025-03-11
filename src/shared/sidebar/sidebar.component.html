@@ -1,0 +1,43 @@
+<div class="sidebar" [ngClass]="{'collapsed': isCollapsed}">
+  <div class="sidebar-header">
+    <button class="toggle-btn" (click)="toggleSidebar()">
+      <i class="fas" [ngClass]="{'fa-angle-double-left': !isCollapsed, 'fa-angle-double-right': isCollapsed}"></i>
+    </button>
+    <div class="logo" *ngIf="!isCollapsed">
+      <img src="/assets/logo.png" alt="Logo" />
+      <span>Bank Management System</span>
+    </div>
+  </div>
+  <ul>
+    <li>
+      <a routerLink="/admin/manage-customers">
+        <i class="fas fa-users"></i>
+        <span *ngIf="!isCollapsed">Manage Customers</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin/manage-accounts">
+        <i class="fas fa-university"></i>
+        <span *ngIf="!isCollapsed">Manage Accounts</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin/pending-transactions">
+        <i class="fas fa-exchange-alt"></i>
+        <span *ngIf="!isCollapsed">Transactions</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin/audit-logs">
+        <i class="fas fa-file-alt"></i>
+        <span *ngIf="!isCollapsed">Audit Logs</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin/transaction-filter">
+        <i class="fas fa-search"></i>
+        <span *ngIf="!isCollapsed">Transaction Filter</span>
+      </a>
+    </li>
+  </ul>
+</div>

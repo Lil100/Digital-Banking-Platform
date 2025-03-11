@@ -1,0 +1,17 @@
+.customer-dashboard-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: #f4f6f9;
+  }
+  
+  .dashboard-body {
+    display: flex;
+    flex: 1;
+  }
+  
+  .dashboard-content {
+    flex: 1;
+    padding: 20px;
+  }
+  

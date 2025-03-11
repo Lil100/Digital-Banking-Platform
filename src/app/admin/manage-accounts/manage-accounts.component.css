@@ -1,0 +1,31 @@
+.accounts-container {
+    padding: 20px;
+  }
+  
+  .table th, .table td {
+    text-align: center;
+  }
+  
+  .table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .active {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .frozen {
+    color: red;
+    font-weight: bold;
+  }
+  
+  button {
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+  }
+  
+  button:hover {
+    transform: scale(1.05);
+  }
+  

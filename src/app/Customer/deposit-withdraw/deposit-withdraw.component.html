@@ -1,0 +1,16 @@
+<div class="transaction-form">
+    <h2>{{ action | titlecase }} Money</h2>
+    <form [formGroup]="transForm" (ngSubmit)="submit()">
+      <div class="form-group">
+        <label>Amount</label>
+        <input type="number" formControlName="amount" class="form-control" placeholder="Enter amount" />
+        <div *ngIf="transForm.get('amount')?.invalid && transForm.get('amount')?.touched" class="text-danger">
+          Please enter a valid amount.
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">
+        <i class="fas fa-paper-plane"></i> Submit
+      </button>
+    </form>
+  </div>
+  
