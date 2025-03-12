@@ -1,16 +1,78 @@
-<div class="transaction-form">
-    <h2>{{ action | titlecase }} Money</h2>
-    <form [formGroup]="transForm" (ngSubmit)="submit()">
-      <div class="form-group">
-        <label>Amount</label>
-        <input type="number" formControlName="amount" class="form-control" placeholder="Enter amount" />
-        <div *ngIf="transForm.get('amount')?.invalid && transForm.get('amount')?.touched" class="text-danger">
-          Please enter a valid amount.
-        </div>
+<div class="container mt-5">
+  <div class="card shadow-sm">
+    <div class="card-header text-center">
+      <h2>{{ action | titlecase }} Money</h2>
+      <div class="btn-group mt-2" role="group" aria-label="Transaction type">
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          [class.active]="action === 'deposit'"
+          (click)="setAction('deposit')"
+        >
+          <i class="fas fa-plus-circle"></i> Deposit
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-danger"
+          [class.active]="action === 'withdraw'"
+          (click)="setAction('withdraw')"
+        >
+          <i class="fas fa-minus-circle"></i> Withdraw
+        </button>
       </div>
-      <button type="submit" class="btn btn-primary">
-        <i class="fas fa-paper-plane"></i> Submit
-      </button>
-    </form>
+    </div>
+
+    <div class="card-body">
+      <!-- Account selection dropdown -->
+      <div class="form-group mb-3">
+        <label for="accountSelect">Select Account</label>
+        <select
+          id="accountSelect"
+          class="form-control"
+          (change)="onAccountSelect($event)"
+        >
+          <option value="">-- Select Account --</option>
+          <option *ngFor="let account of accounts" [value]="account.id">
+            {{ account.accountNumber }} ({{ account.accountType }}) -
+            {{ account.balance | currency }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Transaction form -->
+      <form [formGroup]="transForm" (ngSubmit)="submit()">
+        <div class="form-group mb-3">
+          <label for="amount">Amount</label>
+          <input
+            id="amount"
+            type="number"
+            formControlName="amount"
+            class="form-control"
+            placeholder="Enter amount"
+          />
+          <div
+            *ngIf="
+              transForm.get('amount')?.invalid &&
+              transForm.get('amount')?.touched
+            "
+            class="text-danger mt-1"
+          >
+            Please enter a valid amount.
+          </div>
+        </div>
+
+        <div *ngIf="errorMessage" class="alert alert-danger">
+          {{ errorMessage }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-paper-plane"></i> Submit
+        </button>
+      </form>
+    </div>
+
+    <div class="card-footer text-center" *ngIf="selectedAccount">
+      <h4>Account Balance: {{ selectedAccount.balance | currency }}</h4>
+    </div>
   </div>
-  
+</div>

@@ -3,7 +3,7 @@
   background: #007bff;
   color: #fff;
   padding: 20px;
-  height: 100vh; /* Adjust as needed */
+  height: 200vh; /* Adjust as needed */
   transition: width 0.3s ease;
   overflow: hidden;
 }

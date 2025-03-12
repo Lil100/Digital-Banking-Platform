@@ -1,0 +1,43 @@
+/* Container spacing */
+.container {
+  padding: 15px;
+}
+
+/* Widget card with shadow and hover effect */
+.widget-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.widget-card:hover {
+  transform: scale(1.02);
+}
+
+/* Widget icon styling */
+.widget-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+/* Headings for widget info */
+.widget-info h4 {
+  margin: 0;
+  font-weight: 600;
+}
+
+.widget-info h2 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .widget-card {
+    margin-bottom: 20px;
+  }
+}

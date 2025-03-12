@@ -13,10 +13,10 @@
       <tr>
         <th>#</th>
         <th>Account Number</th>
-        <th>Customer</th>
-        <th>Type</th>
+        <th>Customer ID</th>
         <th>Balance</th>
         <th>Status</th>
+        <th>Created At</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -24,30 +24,44 @@
       <tr *ngFor="let account of accounts; let i = index">
         <td>{{ i + 1 }}</td>
         <td>{{ account.accountNumber }}</td>
-        <td>{{ account.customerName }}</td>
-        <td>{{ account.accountType | titlecase }}</td>
+        <td>{{ account.customerId }}</td>
         <td>{{ account.balance | currency }}</td>
         <td>
-          <span [ngClass]="{
-            'badge bg-success': account.status === 'active',
-            'badge bg-danger': account.status === 'frozen'
-          }">
-            {{ account.status | titlecase }}
+          <!-- Show different badge colors for each status -->
+          <span
+            [ngClass]="{
+              'badge bg-success': account.status === 'ACTIVE',
+              'badge bg-warning': account.status === 'FROZEN',
+              'badge bg-secondary': account.status === 'CLOSED'
+            }"
+          >
+            {{ account.status }}
           </span>
         </td>
+        <!-- Display createdAt if provided by the backend -->
+        <td>{{ account.createdAt | date:'short' }}</td>
         <td>
           <div class="btn-group">
             <!-- Freeze/Unfreeze Button -->
-            <button class="btn btn-warning btn-sm" (click)="freezeUnfreezeAccount(account)">
-              <i class="fas" [ngClass]="{
-                'fa-lock': account.status === 'active',
-                'fa-unlock': account.status === 'frozen'
-              }"></i> 
-              {{ account.status === 'active' ? 'Freeze' : 'Unfreeze' }}
+            <button
+              class="btn btn-warning btn-sm"
+              (click)="freezeUnfreezeAccount(account)"
+            >
+              <i
+                class="fas"
+                [ngClass]="{
+                  'fa-lock': account.status === 'ACTIVE',
+                  'fa-unlock': account.status === 'FROZEN'
+                }"
+              ></i>
+              {{ account.status === 'ACTIVE' ? 'Freeze' : 'Unfreeze' }}
             </button>
 
             <!-- Edit Account Button -->
-            <button class="btn btn-info btn-sm" (click)="openAccountForm(account)">
+            <button
+              class="btn btn-info btn-sm"
+              (click)="openAccountForm(account)"
+            >
               <i class="fas fa-edit"></i> Edit
             </button>
           </div>

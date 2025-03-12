@@ -9,6 +9,8 @@ export interface Transaction {
   type: 'DEPOSIT' | 'WITHDRAW' | 'TRANSFER';
   date: string;
   status: string;
+  fromAccountId:number;
+  toAccountid:number;
 }
 
 @Injectable({
@@ -17,7 +19,7 @@ export interface Transaction {
 export class TransactionService {
   private pendingUrl = '/api/transactions/pending';
   private searchUrl = '/api/transactions/search';
-  private miniStatementUrl = '/api/transactions/account';
+  private miniStatementUrl = '/http://172.16.2.130:8083/api/transactions';
   private depositWithdrawUrl = '/api/transactions/deposit/withdraw';
   private transferUrl = '/api/transactions/transfer';
 
@@ -31,7 +33,9 @@ export class TransactionService {
   approveTransaction(id: number): Observable<any> {
     return this.http.post(`/api/transactions/${id}/approve`, {});
   }
-
+  getAllTransactions(): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>('http://172.16.2.130:8083/api/transactions/all');
+  }
   rejectTransaction(id: number): Observable<any> {
     return this.http.post(`/api/transactions/${id}/reject`, {});
   }

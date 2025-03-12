@@ -36,24 +36,25 @@ export class LoginComponent {
     });
 
     this.authService.login(this.email, this.password).subscribe({
-      next: (response) => {
-        // Typically, you'd get a token and role from the response
-        const { token, role } = response;
-        // Save token & role in localStorage
+      next: (response: any) => {
+        // Extract token and role from the response.
+        // The backend returns { message, user: { role, fullName, email }, token }
+        const { token, user } = response;
+        const role = user.role;
+        // Save token and role in localStorage
         this.authService.saveToken(token, role);
 
-        // If "Remember Me" is checked, store the email
+        // Manage "Remember Me" option
         if (this.rememberMe) {
           localStorage.setItem('rememberEmail', this.email);
         } else {
           localStorage.removeItem('rememberEmail');
         }
 
-        // Redirect based on role
+        // Redirect based on the role
         if (role === 'ADMIN') {
           this.router.navigate(['/admin']);
         } else {
-          // Default to CUSTOMER or other roles
           this.router.navigate(['/customer']);
         }
       },

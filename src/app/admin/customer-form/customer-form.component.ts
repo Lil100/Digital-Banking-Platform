@@ -49,7 +49,7 @@ export class CustomerFormComponent implements OnChanges {
       });
     } else {
       // Create new customer
-      this.customerService.createCustomer(customerData).subscribe(() => {
+      this.customerService.registerCustomer(customerData).subscribe(() => {
         this.dialogRef.close(true);
       });
     }

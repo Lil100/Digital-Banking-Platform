@@ -1,9 +1,39 @@
-.transaction-form {
-    max-width: 400px;
-    margin: auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 2px 2px 12px rgba(0,0,0,0.1);
+/* Card styling with shadow and hover effect */
+.card {
+  max-width: 500px;
+  margin: 20px auto;
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+/* Header & footer background styling */
+.card-header,
+.card-footer {
+  background-color: #f8f9fa;
+}
+
+/* Button group hover effects */
+.btn-group .btn {
+  min-width: 120px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-group .btn:hover {
+  opacity: 0.8;
+}
+
+/* Container padding */
+.container {
+  padding: 15px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .card {
+    margin: 10px;
+    padding: 10px;
   }
-  
+}

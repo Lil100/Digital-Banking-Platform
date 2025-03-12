@@ -24,7 +24,13 @@
     <li>
       <a routerLink="/admin/pending-transactions">
         <i class="fas fa-exchange-alt"></i>
-        <span *ngIf="!isCollapsed">Transactions</span>
+        <span *ngIf="!isCollapsed">Pending Transactions</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin/all-transactions">
+        <i class="fas fa-exchange-alt"></i>
+        <span *ngIf="!isCollapsed">All Transactions</span>
       </a>
     </li>
     <li>

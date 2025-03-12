@@ -17,6 +17,7 @@ import { TransferFundsComponent } from './Customer/transfer-funds/transfer-funds
 import { NotificationsComponent } from './Customer/notifications/notifications.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { AllTransactionsComponent } from './admin/all-transactions/all-transactions.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -30,9 +31,11 @@ export const routes: Routes = [
         {path: 'manage-accounts', component: ManageAccountsComponent},
         {path: 'pending-transactions', component:PendingTransactionsComponent},
         {path: 'audit-logs', component: AuditLogsComponent},
-        {path: 'transaction-filter',component: TransactionFilterComponent}
+        {path: 'transaction-filter',component: TransactionFilterComponent},
+        {path: 'all-transactions',component:AllTransactionsComponent}
       ]},
       {path:'customer',component:CustomerDashboardComponent,children:[
+        {path:'',redirectTo:'profile',pathMatch:'full'},
           {path:'profile', component:ProfileComponent},
 {path: 'linked-accounts', component: LinkedAccountsComponent},
 {path:'mini-statement',component:MiniStatementComponent},
