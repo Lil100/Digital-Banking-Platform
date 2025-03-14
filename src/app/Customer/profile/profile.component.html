@@ -1,19 +1,48 @@
-<div class="profile-container" *ngIf="customer; else noData">
-  <h2>Customer Profile</h2>
-  <div class="profile-details">
-    <p><strong>Name:</strong> {{ customer.name }}</p>
-    <p><strong>Email:</strong> {{ customer.email }}</p>
-    <p><strong>Phone:</strong> {{ customer.phone }}</p>
-    <p><strong>Address:</strong> {{ customer.address }}</p>
-    <p><strong>Status:</strong> {{ customer.status }}</p>
+<div class="container profile-container my-4" *ngIf="userProfile; else noData">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <!-- Profile Card -->
+      <div class="profile-card p-4 shadow-sm">
+        <h2 class="mb-4 text-center">
+          <i class="fas fa-user-circle"></i> My Profile
+        </h2>
+        <div class="profile-details">
+          <p>
+            <strong><i class="fas fa-user"></i> Name:</strong>
+            {{ userProfile.fullName }}
+          </p>
+          <p>
+            <strong><i class="fas fa-envelope"></i> Email:</strong>
+            {{ userProfile.email }}
+          </p>
+          <p>
+            <strong><i class="fas fa-id-card"></i> User ID:</strong>
+            {{ userProfile.id }}
+          </p>
+          <p>
+            <strong><i class="fas fa-user-tag"></i> Role:</strong>
+            {{ userProfile.role }}
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
+<!-- If no userProfile, show error or loading -->
 <ng-template #noData>
-  <div class="error" *ngIf="error; else loading">
-    {{ error }}
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="alert alert-danger" *ngIf="error; else loading">
+          <i class="fas fa-exclamation-circle"></i> {{ error }}
+        </div>
+        <ng-template #loading>
+          <p class="text-center">
+            <i class="fas fa-spinner fa-spin"></i> Loading profile...
+          </p>
+        </ng-template>
+      </div>
+    </div>
   </div>
-  <ng-template #loading>
-    <p>Loading profile...</p>
-  </ng-template>
 </ng-template>

@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // If "Remember Me" was previously checked, auto-fill the email
+    // Auto-fill the email if "Remember Me" was previously checked
     const savedEmail = localStorage.getItem('rememberEmail');
     if (savedEmail) {
       this.email = savedEmail;
@@ -42,28 +42,18 @@ export class LoginComponent implements OnInit {
       next: (response: LoginResponse) => {
         console.log('[LoginComponent] Login successful:', response);
 
-        // The response should look like:
-        // {
-        //   "message": "user authenticated successfully",
-        //   "user": {
-        //     "id": 22,
-        //     "name": "Habibi",
-        //     "email": "habibi@gmail.com",
-        //     "role": "CUSTOMER"
-        //   },
-        //   "token": "..."
-        // }
-        // We already store the token & role in AuthService.saveToken()
-        // and store the customerId if role === 'CUSTOMER'.
+        // The AuthService.login() method now stores the full login response in localStorage
+        const storedData = localStorage.getItem('loggedInUser');
+        console.log('Stored login response:', storedData);
 
-        // "Remember Me" logic
+        // "Remember Me" logic: save or remove the email
         if (this.rememberMe) {
           localStorage.setItem('rememberEmail', this.email);
         } else {
           localStorage.removeItem('rememberEmail');
         }
 
-        // Redirect based on role
+        // Redirect the user based on their role
         if (response.user.role === 'ADMIN') {
           this.router.navigate(['/admin']);
         } else {
@@ -71,8 +61,7 @@ export class LoginComponent implements OnInit {
         }
       },
       error: (err) => {
-        this.errorMessage =
-          err.message || 'Login failed. Please check your credentials.';
+        this.errorMessage = err.message || 'Login failed. Please check your credentials.';
         console.error('[LoginComponent] Login error:', err);
       },
     });
