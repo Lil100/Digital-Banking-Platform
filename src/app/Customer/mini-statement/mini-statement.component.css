@@ -1,11 +1,31 @@
 .statement-container {
-    margin-top: 20px;
-    padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 2px 2px 12px rgba(0,0,0,0.1);
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-inline .form-group {
+  display: flex;
+  align-items: center;
+}
+
+.form-inline .form-group label {
+  font-weight: 500;
+}
+
+.table {
+  margin-top: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .form-inline {
+    flex-direction: column;
   }
-  .table th, .table td {
-    text-align: center;
+  .form-inline .form-group {
+    margin-bottom: 10px;
+    width: 100%;
   }
-  
+}

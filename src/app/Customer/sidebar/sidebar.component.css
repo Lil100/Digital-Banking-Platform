@@ -1,6 +1,6 @@
 .customer-sidebar {
-    background: #007bff;
-    color: #fff;
+    background: #e5e7e7;
+    color: #1f0303;
     padding: 20px;
     width: 220px;
     min-height: calc(100vh - 60px); /* Adjust based on navbar height */
@@ -16,7 +16,7 @@
   }
   
   .customer-sidebar a {
-    color: #fff;
+    color: #331e1e;
     text-decoration: none;
     font-size: 1.1rem;
     display: flex;

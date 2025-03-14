@@ -1,26 +1,79 @@
+/* Modal overlay covering the entire screen */
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+  animation: fadeInOverlay 0.3s ease-out;
+}
+
+/* Modal content container */
+.modal-content {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  animation: slideDown 0.3s ease-out;
+}
+
+/* Header icon styling */
+.modal-content h3 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.modal-content h3 i {
+  margin-right: 10px;
+  color: #007bff;
+}
+
+/* Close button styling with hover effects */
+.close-btn {
+  margin-top: 20px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.close-btn:hover {
+  background-color: #6c757d;
+  transform: scale(1.05);
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
   .modal-content {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    width: 300px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transform: scale(1);
-    transition: transform 0.3s ease;
+    padding: 15px;
+    max-width: 90%;
   }
-  
-  .modal-content:hover {
-    transform: scale(1.02);
+}
+
+/* Fade in overlay animation */
+@keyframes fadeInOverlay {
+  from {
+    opacity: 0;
   }
-  
+  to {
+    opacity: 1;
+  }
+}
+
+/* Slide down animation for modal content */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

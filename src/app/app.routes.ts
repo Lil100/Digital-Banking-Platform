@@ -18,13 +18,17 @@ import { NotificationsComponent } from './Customer/notifications/notifications.c
 import { RegisterComponent } from './auth/register/register.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { AllTransactionsComponent } from './admin/all-transactions/all-transactions.component';
-
+import { AuthGuard } from './guards/auth.guard';
+import { CustomerGuard } from './guards/customer-guard.guard';
+import { AdminGuard } from './guards/admin-guard.guard';
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     {path: 'login',component:LoginComponent},
     {path: 'register',component:RegisterComponent},
     {path:'forgot-password',component:ForgotPasswordComponent},
-    { path: 'admin', component: DashboardComponent, children: [
+    { path: 'admin', component: DashboardComponent
+      //,canActivate: [AuthGuard, AdminGuard] 
+      , children: [
         { path: '', redirectTo: 'home', pathMatch: 'full' },
         {path: 'home', component: HomeComponent},
         {path:'manage-customers',component: ManageCustomersComponent},
@@ -34,7 +38,9 @@ export const routes: Routes = [
         {path: 'transaction-filter',component: TransactionFilterComponent},
         {path: 'all-transactions',component:AllTransactionsComponent}
       ]},
-      {path:'customer',component:CustomerDashboardComponent,children:[
+      {path:'customer',component:CustomerDashboardComponent
+       // ,canActivate: [AuthGuard, CustomerGuard]
+        ,children:[
         {path:'',redirectTo:'profile',pathMatch:'full'},
           {path:'profile', component:ProfileComponent},
 {path: 'linked-accounts', component: LinkedAccountsComponent},

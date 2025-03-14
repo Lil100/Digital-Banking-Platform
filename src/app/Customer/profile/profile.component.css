@@ -1,36 +1,19 @@
-.profile-card {
-  border-radius: 15px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  overflow: hidden;
+.profile-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
 }
 
-/* Hover effect: lift card and enhance shadow */
-.profile-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+.profile-details p {
+  font-size: 16px;
+  margin: 10px 0;
 }
 
-.profile-card .card-header {
-  border-bottom: none;
-  padding: 1rem;
-}
-
-.profile-card .card-body {
-  padding: 1.5rem;
-}
-
-.profile-card .card-text {
-  font-size: 1.1rem;
-  margin: 0.5rem 0;
-  color: #555;
-}
-
-/* Responsive adjustments */
-@media (max-width: 576px) {
-  .profile-card {
-    margin: 1rem;
-  }
-  .profile-card .card-text {
-    font-size: 1rem;
-  }
+.error {
+  color: red;
+  text-align: center;
+  margin-top: 20px;
 }

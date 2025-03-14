@@ -1,23 +1,44 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomerService } from '../../services/customer.service';
+import { CustomerService, Customer } from '../../services/customer.service';
+import { AuthService } from '../../auth/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  standalone: true,
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
+  imports:[CommonModule]
 })
 export class ProfileComponent implements OnInit {
-  profile: any = {};
+  customer: Customer | null = null;
+  error: string | null = null;
 
-  constructor(private customerService: CustomerService) {}
+  constructor(
+    private customerService: CustomerService,
+    private authService: AuthService
+  ) {
+    console.debug('[ProfileComponent] Constructor: Component instance created.');
+  }
 
   ngOnInit(): void {
-    // Assume you have a method to get current customer ID, e.g., from a token
-    const customerId = 1; // Replace with actual ID logic
-    this.customerService.getCustomerById(customerId).subscribe({
-      next: (data) => (this.profile = data),
-      error: (err) => console.error('Profile load error', err),
-    });
+    console.debug('[ProfileComponent] ngOnInit: Initialization started.');
+    // Retrieve the user ID from AuthService (assumed stored after login)
+    const userId = this.authService.getUserId();
+    if (userId) {
+      console.debug(`[ProfileComponent] ngOnInit: Retrieved userId: ${userId}`);
+      this.customerService.getCustomerById(userId).subscribe({
+        next: (data: Customer) => {
+          console.debug('[ProfileComponent] Customer data fetched successfully:', data);
+          this.customer = data;
+        },
+        error: (err) => {
+          console.error('[ProfileComponent] Error fetching customer data:', err);
+          this.error = 'Unable to load profile. Please try again later.';
+        }
+      });
+    } else {
+      console.error('[ProfileComponent] ngOnInit: No userId found. The user might not be logged in.');
+      this.error = 'User ID not found. Please log in again.';
+    }
   }
 }

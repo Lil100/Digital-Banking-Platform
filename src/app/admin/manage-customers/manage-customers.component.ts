@@ -26,7 +26,7 @@ export class ManageCustomersComponent implements OnInit {
 
   loadCustomers(): void {
     console.log('[ManageCustomersComponent] loadCustomers() called');
-    this.customerService.getCustomers().subscribe({
+    this.customerService.getCustomers().subscribe({ 
       next: (data) => {
         console.log('[ManageCustomersComponent] Received customers:', data);
         this.customers = data;

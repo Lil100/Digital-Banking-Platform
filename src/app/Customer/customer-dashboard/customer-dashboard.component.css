@@ -1,17 +1,90 @@
+/* Container fills the viewport height and prevents overflow */
 .customer-dashboard-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background: #f4f6f9;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background: #f0f2f5; /* Light background for the dashboard */
+}
+
+/* Navbar (app-nabbar) remains at the top with fixed height */
+app-nabbar {
+  flex: 0 0 auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Dashboard body holds the sidebar and main content */
+.dashboard-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Sidebar styling */
+app-sidebar {
+  width: 250px; /* Fixed width for desktop */
+  background-color: #f1f1f1; /* Dark background */
+  color: #000000;
+  overflow-y: auto;
+  transition: all 0.3s ease;
+}
+
+/* Main content area styling */
+.dashboard-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  background: #ffffff;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Scrollbar styling (Webkit browsers) */
+app-sidebar::-webkit-scrollbar,
+.dashboard-content::-webkit-scrollbar {
+  width: 2px;
+}
+
+app-sidebar::-webkit-scrollbar-thumb,
+.dashboard-content::-webkit-scrollbar-thumb {
+  background-color: rgba(231, 231, 231, 0.2);
+  border-radius: 4px;
+}
+
+/* Responsive adjustments for tablets/mobile */
+@media (max-width: 768px) {
   .dashboard-body {
-    display: flex;
-    flex: 1;
+    flex-direction: column;
   }
-  
-  .dashboard-content {
-    flex: 1;
-    padding: 20px;
+
+  app-sidebar {
+    width: 100%;
+    height: auto;
+    overflow-y: visible;
   }
-  
+}
+
+/* Additional dynamic and advanced styling */
+.dashboard-content h1,
+.dashboard-content h2,
+.dashboard-content h3,
+.dashboard-content p {
+  font-family: 'Roboto', sans-serif;
+}
+
+.dashboard-content a {
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.dashboard-content a:hover {
+  color: #0056b3;
+}
+
+/* Utility classes for spacing and layout if needed */
+.mt-20 {
+  margin-top: 20px;
+}
+.mb-20 {
+  margin-bottom: 20px;
+}

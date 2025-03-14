@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService, LoginResponse } from '../auth.service';
 
 @Component({
   standalone: true,
@@ -11,13 +11,16 @@ import { AuthService } from '../auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   email = '';
   password = '';
-  rememberMe = false; // For "Remember Me" option
+  rememberMe = false;
   errorMessage = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     // If "Remember Me" was previously checked, auto-fill the email
@@ -36,23 +39,32 @@ export class LoginComponent {
     });
 
     this.authService.login(this.email, this.password).subscribe({
-      next: (response: any) => {
-        // Extract token and role from the response.
-        // The backend returns { message, user: { role, fullName, email }, token }
-        const { token, user } = response;
-        const role = user.role;
-        // Save token and role in localStorage
-        this.authService.saveToken(token, role);
+      next: (response: LoginResponse) => {
+        console.log('[LoginComponent] Login successful:', response);
 
-        // Manage "Remember Me" option
+        // The response should look like:
+        // {
+        //   "message": "user authenticated successfully",
+        //   "user": {
+        //     "id": 22,
+        //     "name": "Habibi",
+        //     "email": "habibi@gmail.com",
+        //     "role": "CUSTOMER"
+        //   },
+        //   "token": "..."
+        // }
+        // We already store the token & role in AuthService.saveToken()
+        // and store the customerId if role === 'CUSTOMER'.
+
+        // "Remember Me" logic
         if (this.rememberMe) {
           localStorage.setItem('rememberEmail', this.email);
         } else {
           localStorage.removeItem('rememberEmail');
         }
 
-        // Redirect based on the role
-        if (role === 'ADMIN') {
+        // Redirect based on role
+        if (response.user.role === 'ADMIN') {
           this.router.navigate(['/admin']);
         } else {
           this.router.navigate(['/customer']);
@@ -61,7 +73,7 @@ export class LoginComponent {
       error: (err) => {
         this.errorMessage =
           err.message || 'Login failed. Please check your credentials.';
-        console.error('Login error:', err);
+        console.error('[LoginComponent] Login error:', err);
       },
     });
   }

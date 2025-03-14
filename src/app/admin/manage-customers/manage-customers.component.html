@@ -10,7 +10,7 @@
         <th>Name</th>
         <th>Email</th>
         <th>Phone</th>
-        <th>Status</th>
+        <th>Customer ID</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -22,7 +22,7 @@
         <td>{{ customer.phone }}</td>
         <td>
           <span [class.active]="customer.status === 'active'" [class.inactive]="customer.status !== 'active'">
-            {{ customer.status }}
+            {{ customer.id }}
           </span>
         </td>
         <td>

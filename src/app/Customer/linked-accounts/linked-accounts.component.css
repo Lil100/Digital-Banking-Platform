@@ -1,11 +1,36 @@
-.accounts-container {
-    padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    margin-top: 20px;
-    box-shadow: 2px 2px 12px rgba(0,0,0,0.1);
+/* Basic container spacing */
+.container {
+  padding: 15px;
+}
+
+/* Table shadow & border radius */
+.table {
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.thead-dark th {
+  background-color: #343a40;
+  color: #fff;
+}
+
+/* Hover effect for table rows */
+.table-hover tbody tr:hover {
+  background-color: #f8f9fa;
+  transform: scale(1.01);
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Additional shadow on the table container */
+.table-responsive-md {
+  border-radius: 8px;
+}
+
+/* Responsive spacing on smaller screens */
+@media (max-width: 576px) {
+  .container {
+    margin: 0 auto;
+    padding: 10px;
   }
-  .table th, .table td {
-    text-align: center;
-  }
-  
+}

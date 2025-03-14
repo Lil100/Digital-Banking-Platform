@@ -1,5 +1,6 @@
 <nav class="navbar">
-  <span>Admin Dashboard</span>
+  <span><b>Role: {{ userRole }}</b></span>
+  <span class="datetime">{{ currentDateTime | date:'medium' }}</span>
   <button class="btn btn-link" (click)="logout()">
     <i class="fas fa-sign-out-alt"></i> Logout
   </button>

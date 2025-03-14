@@ -6,18 +6,18 @@ import { catchError, tap } from 'rxjs/operators';
 export interface Account {
   id: number;
   accountNumber: string;
-  accountType: string;
   balance: number;
   status: string;
   customerId: number;
   createdAt?: string; // or Date
+  ownerId?: number;    // Added to match your console data
+  accountType: string;
 }
-
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
-  private apiUrl = 'http://172.16.2.130:8082/api/accounts';
+  private apiUrl = 'http://172.16.2.171:9083/api/acc/accounts';
 
   constructor(private http: HttpClient) {}
 
