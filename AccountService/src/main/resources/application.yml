@@ -1,5 +1,5 @@
 server:
-  port: 8082
+  port: 9083
 
 spring:
   application:
@@ -16,6 +16,11 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher  # Fix potential path matching issues
+
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
@@ -25,4 +30,19 @@ logging:
     root: INFO
     org.springframework.web: DEBUG
     org.hibernate.SQL: DEBUG
+    org.springframework.cloud.openfeign: DEBUG  # Enable Feign logging
+    com.bankingplatform.transactionservice.client.AccountClient: DEBUG  # Specific Feign client logging
 
+feign:
+  client:
+    config:
+      default:
+        logger-level: FULL  # Log request and response bodies
+        connect-timeout: 5000  # Set connection timeout (5 seconds)
+        read-timeout: 10000  # Set read timeout (10 seconds)
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  # Expose all actuator endpoints

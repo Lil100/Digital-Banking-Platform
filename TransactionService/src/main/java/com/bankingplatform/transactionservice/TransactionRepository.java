@@ -14,4 +14,7 @@ public interface TransactionRepository extends JpaRepository<TransactionEntity, 
     List<TransactionEntity> findByToAccountId(Long accountId);
 
     List<TransactionEntity> findAll();
+
+    List<TransactionEntity> findByStatus(String status);
+
 }

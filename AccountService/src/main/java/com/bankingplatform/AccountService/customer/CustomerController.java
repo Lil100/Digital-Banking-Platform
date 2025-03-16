@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "http://172.16.2.61:4200, http://172.16.1.166:4200")
 @RestController
-@RequestMapping("/api/customers")
+@RequestMapping("/api/acc/customers")
 public class CustomerController {
 
     @Autowired
@@ -29,11 +29,26 @@ public class CustomerController {
         return customer.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    // ✅ GET method to retrieve a customer by email
+    @GetMapping("/email/{email}")
+    public ResponseEntity<?> getCustomerByEmail(@PathVariable String email) {
+        Optional<CustomerEntity> customer = customerService.getCustomerByEmail(email);
+        return customer.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
     // GET method to retrieve all customers
     @GetMapping("/all")
     public ResponseEntity<List<CustomerEntity>> getAllCustomers() {
         List<CustomerEntity> customers = customerService.getAllCustomers();
         return ResponseEntity.ok(customers);
+    }
+
+    // New endpoint to fetch customer details using the user id
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<?> getCustomerByUserId(@PathVariable Long userId) {
+        Optional<CustomerEntity> customer = customerService.getCustomerByUserId(userId);
+        return customer.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // DELETE method to delete a customer by id

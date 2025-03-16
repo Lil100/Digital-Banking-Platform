@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -47,20 +48,23 @@ public class UserController {
         Map<String, Object> response = new HashMap<>();
 
         try {
-            String user = String.valueOf(userService.authenticateUser(request.getEmail(), request.getPassword()));
+            Optional<User> userOptional = userService.getUserByEmail(request.getEmail());
 
-            if (user != null) {
-                // Generate JWT token with user details
-                String token = jwtTokenProvider.generateToken(user, user, user);
-
-                // Prepare response
+            if (userOptional.isPresent()) {
+                User user = userOptional.get();
+                String token = jwtTokenProvider.generateToken(
+                        user.getEmail(),
+                        user.getFullName(),
+                        user.getRole().name()
+                );
                 response.put("message", "User authenticated successfully");
-                response.put("token", token);
                 response.put("user", Map.of(
-                        "fullName", user,
-                        "email", user,
-                        "role", user
+                        "userId", user.getId(),
+                        "fullName", user.getFullName(),
+                        "email", user.getEmail(),
+                        "role", user.getRole().name()
                 ));
+                response.put("token", token);
 
                 return ResponseEntity.ok(response);
             } else {
@@ -73,4 +77,34 @@ public class UserController {
         }
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        return ResponseEntity.of(userService.getUserById(id));
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = userService.getAllUsers();
+        return ResponseEntity.ok(users);
+    }
+
+    @PutMapping("/update/{email}")
+    public ResponseEntity<User> updateUserByEmail(@PathVariable String email, @RequestBody User user) {
+        Optional<User> updatedUser = userService.updateUserByEmail(email, user);
+        return updatedUser.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/delete/{email}")
+    public ResponseEntity<Map<String, String>> deleteUserByEmail(@PathVariable String email) {
+        boolean deleted = userService.deleteUserByEmail(email);
+        Map<String, String> response = new HashMap<>();
+        if (deleted) {
+            response.put("message", "User deleted successfully");
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("error", "User not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+    }
 }

@@ -20,9 +20,15 @@ public class CustomerService {
         return customerRepository.findById(customerId);
     }
 
+    public Optional<CustomerEntity> getCustomerByUserId(Long userId) {
+        return customerRepository.findByUserId(userId);
+    }
+
+
     public List<CustomerEntity> getAllCustomers() {
         return customerRepository.findAll();
     }
+
 
     public CustomerEntity updateCustomer(Long id, CustomerEntity customerEntity) {
         CustomerEntity customer = customerRepository.findById(id).orElseThrow();
@@ -35,5 +41,9 @@ public class CustomerService {
 
     public void deleteCustomer(Long id) {
         customerRepository.deleteById(id);
+    }
+
+    public Optional<CustomerEntity> getCustomerByEmail(String email) {
+        return customerRepository.findByEmail(email) ;
     }
 }

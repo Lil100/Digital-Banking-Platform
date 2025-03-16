@@ -30,14 +30,14 @@ public class AuditLogController {
 
     // Get all logs (Admins only)
     @GetMapping("/all")
-    @PreAuthorize("hasAuthority('ADMIN')")
+//    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<AuditLog>> getAllLogs() {
         return ResponseEntity.ok(auditLogService.getAllLogs());
     }
 
     // Get user logs (Admins only)
     @GetMapping("/{email}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+//    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<AuditLog>> getUserLogs(@PathVariable String email) {
         return ResponseEntity.ok(auditLogService.getUserLogs(email));
     }

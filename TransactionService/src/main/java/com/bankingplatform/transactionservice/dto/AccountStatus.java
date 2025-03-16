@@ -1,4 +1,4 @@
-package com.bankingplatform.transactionservice.DTO;
+package com.bankingplatform.transactionservice.dto;
 
 public enum AccountStatus {
     ACTIVE,

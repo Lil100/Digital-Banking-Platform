@@ -63,4 +63,15 @@ public class AccountService {
         account.setStatus(AccountStatus.CLOSED);
         accountRepository.save(account);
     }
+
+
+
+    public List<AccountEntity> getAccountsByCustomerId(Long customerId) {
+        return accountRepository.findByCustomerId(customerId);
+    }
+
+    public Optional<AccountEntity> getAccountByEmail(String email) {
+        return accountRepository.findByEmail(email);
+    }
+
 }

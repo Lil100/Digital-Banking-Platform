@@ -25,10 +25,14 @@ public class TransactionEntity {
     private double amount;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private TransactionType type;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TransactionStatus status; // New status field
 
     @Column(nullable = false)
     private LocalDateTime transactionTime = LocalDateTime.now();
-
 
 }

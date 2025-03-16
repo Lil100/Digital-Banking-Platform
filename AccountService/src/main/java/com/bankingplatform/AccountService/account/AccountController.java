@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/accounts")
+@RequestMapping("/api/acc/accounts")
 public class AccountController {
 
     @Autowired
@@ -34,6 +34,18 @@ public class AccountController {
         }
     }
 
+    // Get accounts by customerId
+    @GetMapping("/customer/{customerId}")
+    public ResponseEntity<List<AccountEntity>> getAccountsByCustomerId(@PathVariable Long customerId) {
+        List<AccountEntity> accounts = accountService.getAccountsByCustomerId(customerId);
+        if (!accounts.isEmpty()) {
+            return ResponseEntity.ok(accounts);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
 
     // Get all accounts
     @GetMapping("/all")
@@ -56,6 +68,14 @@ public class AccountController {
         List<AccountEntity> accounts = accountService.getAccountsByStatus(status);
         return ResponseEntity.ok(accounts);
     }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<AccountEntity> getAccountByEmail(@PathVariable String email) {
+        Optional<AccountEntity> account = accountService.getAccountByEmail(email);
+        return account.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
 
     // Freeze account
     @PutMapping("/{id}/freeze")

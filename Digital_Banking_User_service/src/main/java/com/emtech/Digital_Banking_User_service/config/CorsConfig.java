@@ -1,36 +1,25 @@
 package com.emtech.Digital_Banking_User_service.config;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
-
-import java.util.List;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class CorsConfig {
 
     @Bean
-    public CorsFilter corsFilter() {
-        CorsConfiguration corsConfig = new CorsConfiguration();
-
-        // ✅ Define allowed origins - Change this to your front-end domain
-        corsConfig.setAllowedOrigins(List.of("http://localhost:4200", "https://yourfrontenddomain.com"));
-
-        // ✅ Allowed HTTP methods
-        corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-
-        // ✅ Allowed headers
-        corsConfig.setAllowedHeaders(List.of("Authorization", "Content-Type"));
-
-        // ✅ Allow credentials for authentication
-        corsConfig.setAllowCredentials(true);
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", corsConfig);
-
-        return new CorsFilter(source);
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedOrigins("http://localhost:4200", "http://172.16.2.61:4200/", "http://172.16.1.166:4200/") // Specific allowed origins
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Allowed HTTP methods
+                        .allowedHeaders("Authorization", "Content-Type", "X-Requested-With") // Allowed headers
+                        .exposedHeaders("Authorization", "Content-Type") // Headers to expose
+                        .allowCredentials(true); // Allow credentials (cookies, authorization headers)
+            }
+        };
     }
 }

@@ -1,4 +1,4 @@
-package com.bankingplatform.transactionservice.DTO;
+package com.bankingplatform.transactionservice.dto;
 
 import lombok.Data;
 import lombok.Getter;

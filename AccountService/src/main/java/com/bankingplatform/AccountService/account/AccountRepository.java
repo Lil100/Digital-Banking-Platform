@@ -15,4 +15,10 @@ public interface AccountRepository extends JpaRepository<AccountEntity, Long> {
     // Custom query to find accounts by status
     @Query("SELECT a FROM AccountEntity a WHERE a.status = :status")
     List<AccountEntity> findByStatus(AccountStatus status);
+
+    List<AccountEntity> findByCustomerId(Long customerId);
+
+    Optional<AccountEntity> findByEmail(String email);
+
+
 }

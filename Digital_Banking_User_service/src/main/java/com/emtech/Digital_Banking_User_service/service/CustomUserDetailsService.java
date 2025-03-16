@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
-
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
@@ -27,11 +26,12 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
 
         return org.springframework.security.core.userdetails.User.builder()
-                .username(user.getEmail())  // Using email for authentication
-                .password(user.getPassword())  // Hashed password
+                .username(user.getEmail())  // ✅ Using email for authentication (Correct)
+                .password(user.getPassword())  // ✅ Password should be hashed in DB
                 .authorities(Collections.singletonList(
-                        new SimpleGrantedAuthority("ROLE_" + user.getRole().name()) // Assign single role
+                        new SimpleGrantedAuthority("ROLE_" + user.getRole().name()) // ✅ Assign role correctly
                 ))
                 .build();
     }
 }
+
